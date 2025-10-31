@@ -1,0 +1,107 @@
+<div class="p-6 max-w-lg mx-auto bg-white rounded-xl shadow-md space-y-4">
+  <!-- Estado de carga -->
+  <div class="flex items-center justify-between">
+    <span class="font-semibold text-gray-700">Cargando: {{ isLoading() }}</span>
+    <div *ngIf="isLoading()" class="flex items-center">
+      <!-- Spinner animado -->
+      <svg
+        class="animate-spin h-6 w-6 text-blue-600"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Selector de imagen -->
+  <div class="space-y-2">
+    <label class="block font-medium text-gray-700">Seleccionar factura:</label>
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-blue-500"
+    />
+  </div>
+
+  <!-- Vista previa -->
+  <div *ngIf="fileImage" class="mt-4">
+    <p class="text-sm text-gray-600 mb-2">Vista previa:</p>
+    <img
+      [src]="fileImage"
+      alt="Vista previa"
+      class="w-full rounded-lg shadow-sm border border-gray-200"
+    />
+  </div>
+
+  <!-- Formulario de datos (solo si ya cargó la factura) -->
+  <div *ngIf="factura()" class="mt-4 space-y-3 border-t pt-4">
+    <h3 class="font-semibold text-gray-800 mb-2">Datos de la factura:</h3>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label class="block text-sm text-gray-600">No. Factura</label>
+        <input
+          type="text"
+          class="w-full border rounded px-2 py-1"
+          [value]="factura()?.no"
+          readonly
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-600">RTN</label>
+        <input
+          type="text"
+          class="w-full border rounded px-2 py-1"
+          [value]="factura()?.rtn"
+          readonly
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-600">Total</label>
+        <input
+          type="number"
+          class="w-full border rounded px-2 py-1"
+          [value]="factura()?.total"
+          readonly
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-600">Impuesto</label>
+        <input
+          type="number"
+          class="w-full border rounded px-2 py-1"
+          [value]="factura()?.impuesto"
+          readonly
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label class="block text-sm text-gray-600">Moneda</label>
+        <input
+          type="text"
+          class="w-full border rounded px-2 py-1"
+          [value]="factura()?.moneda"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+</div>
