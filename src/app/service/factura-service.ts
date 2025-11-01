@@ -14,7 +14,7 @@ export interface Factura {
   providedIn: 'root',
 })
 export class FacturaService {
-  private baseUrl = 'http://localhost:8080/api/ocr/setFactura';
+  private baseUrl = 'https://filedocument.up.railway.app/api/ocr/factura';
   private http = inject(HttpClient);
 
   /**
